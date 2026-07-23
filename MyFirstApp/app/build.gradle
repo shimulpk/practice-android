@@ -43,7 +43,7 @@ dependencies {
     androidTestImplementation libs.ext.junit
 
     //    retrofit
-    implementation
+
 
     implementation 'com.squareup.retrofit2:converter-gson:3.0.0'
 
