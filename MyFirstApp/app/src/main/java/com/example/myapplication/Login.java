@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -115,6 +116,10 @@ public class Login extends AppCompatActivity {
 
                 // Save User
                 sessionManager.saveUser(login);
+
+                Intent intent = new Intent(Login.this, Home.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
 
 
 
