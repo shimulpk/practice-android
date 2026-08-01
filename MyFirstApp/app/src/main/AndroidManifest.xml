@@ -14,7 +14,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
         android:usesCleartextTraffic="true">
-
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -26,11 +25,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Home"
-            android:exported="true"
+            android:name=".Login"
+            android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".Login"
+            android:name=".ui.cutting.CuttingHomeActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.cutting.DayWiseCuttingEntryActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
     </application>

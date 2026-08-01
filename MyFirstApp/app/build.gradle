@@ -31,6 +31,11 @@ android {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
     }
+
+    // এটা যোগ করো
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
@@ -51,9 +56,7 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:5.4.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:5.4.0'
 
-//Lombok
-    compileOnly 'org.projectlombok:lombok:1.18.46'
-    annotationProcessor 'org.projectlombok:lombok:1.18.46'
+
 
     implementation 'com.google.code.gson:gson:2.14.0'
 }
