@@ -1,6 +1,8 @@
 package com.example.myapplication.ui.cutting;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
@@ -8,6 +10,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.databinding.ActivityDayWiseCuttingEntryBinding;
+import com.example.myapplication.model.response.CuttingPlanProgressResponse;
 import com.example.myapplication.model.response.CuttingPlanResponse;
 import com.example.myapplication.repository.CuttingRepository;
 
@@ -69,6 +72,26 @@ public class DayWiseCuttingEntryActivity extends AppCompatActivity {
 
                         binding.spinnerCuttingPlan.setAdapter(adapter);
 
+                        binding.spinnerCuttingPlan.setOnItemSelectedListener(
+                                new AdapterView.OnItemSelectedListener() {
+
+                                    @Override
+                                    public void onItemSelected(AdapterView<?> parent,
+                                                               View view,
+                                                               int position,
+                                                               long id) {
+
+                                        CuttingPlanResponse selectedPlan = cuttingPlans.get(position);
+
+                                        loadProgress(selectedPlan.getId());
+
+                                    }
+
+                                    @Override
+                                    public void onNothingSelected(AdapterView<?> parent) {
+
+                                    }
+                                });
 
                     }
 
@@ -83,9 +106,62 @@ public class DayWiseCuttingEntryActivity extends AppCompatActivity {
 
                     }
                 });
-
-
     };
+
+
+
+    private void loadProgress(Long cuttingPlanId) {
+
+        cuttingRepository.getCuttingProgress(
+                cuttingPlanId,
+                new Callback<CuttingPlanProgressResponse>() {
+
+                    @Override
+                    public void onResponse(Call<CuttingPlanProgressResponse> call,
+                                           Response<CuttingPlanProgressResponse> response) {
+
+                        if (!response.isSuccessful() || response.body() == null) {
+
+                            Toast.makeText(
+                                    DayWiseCuttingEntryActivity.this,
+                                    "Progress not found",
+                                    Toast.LENGTH_SHORT
+                            ).show();
+
+                            return;
+                        }
+
+                        CuttingPlanProgressResponse progress = response.body();
+
+                        binding.tvTarget.setText(
+                                String.valueOf(progress.getTarget()));
+
+                        binding.tvCutSoFar.setText(
+                                String.valueOf(progress.getCutSoFar()));
+
+                        binding.tvRemaining.setText(
+                                String.valueOf(progress.getRemaining()));
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<CuttingPlanProgressResponse> call,
+                                          Throwable t) {
+
+                        Toast.makeText(
+                                DayWiseCuttingEntryActivity.this,
+                                t.getMessage(),
+                                Toast.LENGTH_LONG
+                        ).show();
+
+                    }
+                });
+
+    }
+
+
+
+
 
 
 }

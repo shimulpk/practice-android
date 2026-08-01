@@ -2,6 +2,7 @@ package com.example.myapplication.api;
 
 import com.example.myapplication.model.request.LoginRequest;
 import com.example.myapplication.model.response.CuttingDashboardResponse;
+import com.example.myapplication.model.response.CuttingPlanProgressResponse;
 import com.example.myapplication.model.response.CuttingPlanResponse;
 import com.example.myapplication.model.response.LoginResponse;
 
@@ -11,6 +12,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface ApiService {
 
@@ -23,6 +25,11 @@ public interface ApiService {
 
     @GET("api/cutting-plans/pending")
     Call<List<CuttingPlanResponse>> getPendingCuttingPlans();
+
+
+    @GET("api/day-wise-cutting-production/progress/{cuttingPlanId}")
+    Call<CuttingPlanProgressResponse> getCuttingProgress(
+            @Path("cuttingPlanId") Long cuttingPlanId);
 
 
 

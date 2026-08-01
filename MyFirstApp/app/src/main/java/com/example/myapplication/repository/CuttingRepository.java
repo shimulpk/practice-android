@@ -5,6 +5,7 @@ import android.content.Context;
 import com.example.myapplication.api.ApiClient;
 import com.example.myapplication.api.ApiService;
 import com.example.myapplication.model.response.CuttingDashboardResponse;
+import com.example.myapplication.model.response.CuttingPlanProgressResponse;
 import com.example.myapplication.model.response.CuttingPlanResponse;
 
 import java.util.List;
@@ -35,6 +36,18 @@ public class CuttingRepository {
 
         apiService
                 .getPendingCuttingPlans()
+                .enqueue(callback);
+
+    }
+
+
+//Show Progress
+    public void getCuttingProgress(
+            Long cuttingPlanId,
+            Callback<CuttingPlanProgressResponse> callback) {
+
+        apiService
+                .getCuttingProgress(cuttingPlanId)
                 .enqueue(callback);
 
     }
