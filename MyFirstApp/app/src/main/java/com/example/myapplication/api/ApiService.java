@@ -1,9 +1,11 @@
 package com.example.myapplication.api;
 
+import com.example.myapplication.model.request.DayWiseCuttingProductionRequest;
 import com.example.myapplication.model.request.LoginRequest;
 import com.example.myapplication.model.response.CuttingDashboardResponse;
 import com.example.myapplication.model.response.CuttingPlanProgressResponse;
 import com.example.myapplication.model.response.CuttingPlanResponse;
+import com.example.myapplication.model.response.DayWiseCuttingProductionResponse;
 import com.example.myapplication.model.response.LoginResponse;
 
 import java.util.List;
@@ -30,6 +32,13 @@ public interface ApiService {
     @GET("api/day-wise-cutting-production/progress/{cuttingPlanId}")
     Call<CuttingPlanProgressResponse> getCuttingProgress(
             @Path("cuttingPlanId") Long cuttingPlanId);
+
+
+
+    @POST("day-wise-cutting-production")
+    Call<DayWiseCuttingProductionResponse> saveDayWiseCuttingProduction(
+            @Body DayWiseCuttingProductionRequest request
+    );
 
 
 

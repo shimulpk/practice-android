@@ -64,6 +64,8 @@ public class DayWiseCuttingEntryActivity extends AppCompatActivity {
 
                         cuttingPlans = response.body();
 
+
+
                         adapter = new ArrayAdapter<>(
                                 DayWiseCuttingEntryActivity.this,
                                 android.R.layout.simple_spinner_dropdown_item,
@@ -141,6 +143,14 @@ public class DayWiseCuttingEntryActivity extends AppCompatActivity {
 
                         binding.tvRemaining.setText(
                                 String.valueOf(progress.getRemaining()));
+
+                        binding.tvProgress.setText(
+                                String.format("%.0f%%", progress.getProgress())
+                        );
+
+                        binding.progressBar.setProgress(
+                                progress.getProgress().intValue()
+                        );
 
                     }
 

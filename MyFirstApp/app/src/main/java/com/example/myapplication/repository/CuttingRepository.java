@@ -4,9 +4,11 @@ import android.content.Context;
 
 import com.example.myapplication.api.ApiClient;
 import com.example.myapplication.api.ApiService;
+import com.example.myapplication.model.request.DayWiseCuttingProductionRequest;
 import com.example.myapplication.model.response.CuttingDashboardResponse;
 import com.example.myapplication.model.response.CuttingPlanProgressResponse;
 import com.example.myapplication.model.response.CuttingPlanResponse;
+import com.example.myapplication.model.response.DayWiseCuttingProductionResponse;
 
 import java.util.List;
 
@@ -50,5 +52,16 @@ public class CuttingRepository {
                 .getCuttingProgress(cuttingPlanId)
                 .enqueue(callback);
 
+    }
+
+
+//    daywise cutting save
+
+    public void saveDayWiseCuttingProduction(
+            DayWiseCuttingProductionRequest request,
+            Callback<DayWiseCuttingProductionResponse> callback) {
+
+        apiService.saveDayWiseCuttingProduction(request)
+                .enqueue(callback);
     }
 }
