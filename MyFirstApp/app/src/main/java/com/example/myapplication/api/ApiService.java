@@ -35,7 +35,7 @@ public interface ApiService {
 
 
 
-    @POST("day-wise-cutting-production")
+    @POST("api/day-wise-cutting-production")
     Call<DayWiseCuttingProductionResponse> saveDayWiseCuttingProduction(
             @Body DayWiseCuttingProductionRequest request
     );

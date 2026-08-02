@@ -1,5 +1,6 @@
 package com.example.myapplication.ui.cutting;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -10,11 +11,17 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.databinding.ActivityDayWiseCuttingEntryBinding;
+import com.example.myapplication.model.request.DayWiseCuttingProductionRequest;
 import com.example.myapplication.model.response.CuttingPlanProgressResponse;
 import com.example.myapplication.model.response.CuttingPlanResponse;
+import com.example.myapplication.model.response.DayWiseCuttingProductionResponse;
 import com.example.myapplication.repository.CuttingRepository;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -30,6 +37,8 @@ public class DayWiseCuttingEntryActivity extends AppCompatActivity {
     private List<CuttingPlanResponse> cuttingPlans;
     private ArrayAdapter<CuttingPlanResponse> adapter;
 
+    private final Calendar calendar = Calendar.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +48,12 @@ public class DayWiseCuttingEntryActivity extends AppCompatActivity {
         cuttingRepository = new CuttingRepository(this);
 
         loadPendingPlans();
+
+        setCurrentDate();
+
+        setupDatePicker();
+
+        binding.btnSave.setOnClickListener(v -> saveEntry());
     }
 
 
@@ -169,6 +184,179 @@ public class DayWiseCuttingEntryActivity extends AppCompatActivity {
 
     }
 
+
+    private void setCurrentDate() {
+
+        SimpleDateFormat sdf =
+                new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+
+        binding.etProductionDate.setText(
+                sdf.format(calendar.getTime())
+        );
+    }
+
+    private void setupDatePicker() {
+
+        binding.etProductionDate.setOnClickListener(v -> {
+
+            DatePickerDialog dialog =
+                    new DatePickerDialog(
+                            DayWiseCuttingEntryActivity.this,
+
+                            (view, year, month, dayOfMonth) -> {
+
+                                calendar.set(year, month, dayOfMonth);
+
+                                SimpleDateFormat sdf =
+                                        new SimpleDateFormat(
+                                                "yyyy-MM-dd",
+                                                Locale.getDefault());
+
+                                binding.etProductionDate.setText(
+                                        sdf.format(calendar.getTime())
+                                );
+
+                            },
+
+                            calendar.get(Calendar.YEAR),
+                            calendar.get(Calendar.MONTH),
+                            calendar.get(Calendar.DAY_OF_MONTH)
+
+                    );
+
+            dialog.show();
+
+        });
+
+    }
+
+
+    private void saveEntry() {
+
+        if (cuttingPlans == null || cuttingPlans.isEmpty()) {
+
+            Toast.makeText(
+                    this,
+                    "No Cutting Plan Found",
+                    Toast.LENGTH_SHORT
+            ).show();
+
+            return;
+        }
+
+        String cutQtyText = binding.etTodayCutQty.getText().toString().trim();
+
+        if (cutQtyText.isEmpty()) {
+
+            binding.etTodayCutQty.setError("Enter Today's Cut Quantity");
+
+            return;
+        }
+
+        CuttingPlanResponse selectedPlan =
+                (CuttingPlanResponse) binding.spinnerCuttingPlan.getSelectedItem();
+
+        DayWiseCuttingProductionRequest request =
+                new DayWiseCuttingProductionRequest();
+
+        request.setCuttingPlanId(selectedPlan.getId());
+
+        request.setDate(
+                binding.etProductionDate.getText().toString()
+        );
+
+        request.setActualCutPieces(
+                Integer.parseInt(cutQtyText)
+        );
+
+        String rejectQtyText =
+                binding.etRejectQty.getText().toString().trim();
+
+        if (rejectQtyText.isEmpty()) {
+
+            request.setRejectPieces(0);
+
+        } else {
+
+            request.setRejectPieces(
+                    Integer.parseInt(rejectQtyText)
+            );
+
+        }
+
+        cuttingRepository.saveDayWiseCuttingProduction(
+                request,
+                new Callback<DayWiseCuttingProductionResponse>() {
+
+                    @Override
+                    public void onResponse(
+                            Call<DayWiseCuttingProductionResponse> call,
+                            Response<DayWiseCuttingProductionResponse> response) {
+
+                        if (!response.isSuccessful()) {
+
+                            if (response.code() == 409) {
+
+                                Toast.makeText(
+                                        DayWiseCuttingEntryActivity.this,
+                                        "Today's entry already exists for this cutting plan.",
+                                        Toast.LENGTH_LONG
+                                ).show();
+
+                            } else {
+
+                                Toast.makeText(
+                                        DayWiseCuttingEntryActivity.this,
+                                        "Error : " + response.code(),
+                                        Toast.LENGTH_LONG
+                                ).show();
+
+                            }
+
+                            return;
+                        }
+
+                        if (response.body() == null) {
+
+                            Toast.makeText(
+                                    DayWiseCuttingEntryActivity.this,
+                                    "Response Body Null",
+                                    Toast.LENGTH_LONG
+                            ).show();
+
+                            return;
+                        }
+
+                        Toast.makeText(
+                                DayWiseCuttingEntryActivity.this,
+                                "Entry Saved Successfully",
+                                Toast.LENGTH_SHORT
+                        ).show();
+
+                        binding.etTodayCutQty.setText("");
+                        binding.etRejectQty.setText("");
+
+                        loadProgress(selectedPlan.getId());
+
+                        loadPendingPlans();
+
+                    }
+
+                    @Override
+                    public void onFailure(
+                            Call<DayWiseCuttingProductionResponse> call,
+                            Throwable t) {
+
+                        Toast.makeText(
+                                DayWiseCuttingEntryActivity.this,
+                                t.getMessage(),
+                                Toast.LENGTH_LONG
+                        ).show();
+
+                    }
+                });
+
+    }
 
 
 
