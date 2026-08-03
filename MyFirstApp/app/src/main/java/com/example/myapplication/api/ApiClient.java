@@ -15,14 +15,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApiClient {
 
     // Emulator
-    private static final String BASE_URL = "http://10.0.2.2:8085/";
+//    private static final String BASE_URL = "http://10.0.2.2:8085/";
 
     // Real Device
     // private static final String BASE_URL = "http://192.168.88.250:8085/";
 
 
     // Real Device
-//     private static final String BASE_URL = "http://192.168.0.107:8085/";
+     private static final String BASE_URL = "http://192.168.0.102:8085/";
 
     private static Retrofit retrofit;
 

@@ -59,6 +59,18 @@ public class CuttingHomeActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+
+        binding.btnHistory.setOnClickListener(v -> {
+
+            startActivity(
+                    new Intent(
+                            CuttingHomeActivity.this,
+                            CuttingHistoryActivity.class
+                    )
+            );
+
+        });
+
         binding.btnPlanList.setOnClickListener(v -> {
             // পরে CuttingPlanListActivity খুলবে
         });

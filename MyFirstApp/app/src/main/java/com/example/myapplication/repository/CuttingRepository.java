@@ -8,6 +8,7 @@ import com.example.myapplication.model.request.DayWiseCuttingProductionRequest;
 import com.example.myapplication.model.response.CuttingDashboardResponse;
 import com.example.myapplication.model.response.CuttingPlanProgressResponse;
 import com.example.myapplication.model.response.CuttingPlanResponse;
+import com.example.myapplication.model.response.DayWiseCuttingHistoryResponse;
 import com.example.myapplication.model.response.DayWiseCuttingProductionResponse;
 
 import java.util.List;
@@ -64,4 +65,19 @@ public class CuttingRepository {
         apiService.saveDayWiseCuttingProduction(request)
                 .enqueue(callback);
     }
+
+
+    public void getDayWiseCuttingHistory(
+            String date,
+            Callback<List<DayWiseCuttingHistoryResponse>> callback) {
+
+        apiService
+                .getDayWiseCuttingHistory(date)
+                .enqueue(callback);
+
+    }
+
+
+
+
 }

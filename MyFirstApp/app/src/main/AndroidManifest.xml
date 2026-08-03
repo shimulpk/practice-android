@@ -36,6 +36,10 @@
             android:name=".ui.cutting.DayWiseCuttingEntryActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.cutting.CuttingHistoryActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>
