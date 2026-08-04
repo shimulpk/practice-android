@@ -16,6 +16,20 @@ public class CuttingHistoryAdapter extends RecyclerView.Adapter<CuttingHistoryAd
 
     private final List<DayWiseCuttingHistoryResponse> historyList = new ArrayList<>();
 
+    public interface OnItemClickListener {
+
+        void onItemClick(DayWiseCuttingHistoryResponse item);
+
+    }
+
+    private OnItemClickListener listener;
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+
+        this.listener = listener;
+
+    }
+
     public void setData(List<DayWiseCuttingHistoryResponse> list) {
 
         historyList.clear();
@@ -63,6 +77,16 @@ public class CuttingHistoryAdapter extends RecyclerView.Adapter<CuttingHistoryAd
         holder.binding.tvEntries.setText(
                 String.valueOf(item.getTotalEntries()));
 
+        holder.itemView.setOnClickListener(v -> {
+
+            if (listener != null) {
+
+                listener.onItemClick(item);
+
+            }
+
+        });
+
     }
 
     @Override
@@ -83,5 +107,7 @@ public class CuttingHistoryAdapter extends RecyclerView.Adapter<CuttingHistoryAd
 
         }
     }
+
+
 
 }

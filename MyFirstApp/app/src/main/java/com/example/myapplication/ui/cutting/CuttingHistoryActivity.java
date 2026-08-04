@@ -1,6 +1,7 @@
 package com.example.myapplication.ui.cutting;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -55,6 +56,27 @@ public class CuttingHistoryActivity extends AppCompatActivity {
         repository = new CuttingRepository(this);
 
         adapter = new CuttingHistoryAdapter();
+
+        adapter.setOnItemClickListener(item -> {
+
+            Intent intent = new Intent(
+                    CuttingHistoryActivity.this,
+                    CuttingHistoryDetailsActivity.class
+            );
+
+            intent.putExtra(
+                    "cuttingPlanId",
+                    item.getCuttingPlanId()
+            );
+
+            intent.putExtra(
+                    "date",
+                    item.getDate()
+            );
+
+            startActivity(intent);
+
+        });
 
         binding.rvHistory.setLayoutManager(
                 new LinearLayoutManager(this));

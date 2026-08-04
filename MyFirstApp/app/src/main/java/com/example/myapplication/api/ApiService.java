@@ -5,6 +5,7 @@ import com.example.myapplication.model.request.LoginRequest;
 import com.example.myapplication.model.response.CuttingDashboardResponse;
 import com.example.myapplication.model.response.CuttingPlanProgressResponse;
 import com.example.myapplication.model.response.CuttingPlanResponse;
+import com.example.myapplication.model.response.DayWiseCuttingHistoryDetailsResponse;
 import com.example.myapplication.model.response.DayWiseCuttingHistoryResponse;
 import com.example.myapplication.model.response.DayWiseCuttingProductionResponse;
 import com.example.myapplication.model.response.LoginResponse;
@@ -48,6 +49,15 @@ public interface ApiService {
             @Query("date") String date
     );
 
+
+    @GET("api/day-wise-cutting-production/history/details")
+    Call<List<DayWiseCuttingHistoryDetailsResponse>> getDayWiseCuttingHistoryDetails(
+
+            @Query("cuttingPlanId") Long cuttingPlanId,
+
+            @Query("date") String date
+
+    );
 
 
 }
