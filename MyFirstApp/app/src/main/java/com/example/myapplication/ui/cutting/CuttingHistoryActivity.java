@@ -74,6 +74,16 @@ public class CuttingHistoryActivity extends AppCompatActivity {
                     item.getDate()
             );
 
+            intent.putExtra("styleNo", item.getStyleNo());
+
+            intent.putExtra("planNo", item.getCuttingPlanCode());
+
+            intent.putExtra("totalCut", item.getTotalCutPieces());
+
+            intent.putExtra("totalReject", item.getTotalRejectPieces());
+
+            intent.putExtra("totalEntries", item.getTotalEntries());
+
             startActivity(intent);
 
         });

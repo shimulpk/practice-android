@@ -21,6 +21,20 @@ public class CuttingHistoryDetailsAdapter
     private final List<DayWiseCuttingHistoryDetailsResponse> detailsList =
             new ArrayList<>();
 
+    public interface OnEditClickListener {
+
+        void onEditClick(DayWiseCuttingHistoryDetailsResponse item);
+
+    }
+
+    private OnEditClickListener editClickListener;
+
+    public void setOnEditClickListener(OnEditClickListener listener) {
+
+        this.editClickListener = listener;
+
+    }
+
     public void setData(List<DayWiseCuttingHistoryDetailsResponse> list) {
 
         detailsList.clear();
@@ -63,6 +77,16 @@ public class CuttingHistoryDetailsAdapter
 
         holder.binding.tvTime.setText(
                 formatTime(item.getCreatedAt()));
+
+        holder.binding.ivEdit.setOnClickListener(v -> {
+
+            if (editClickListener != null) {
+
+                editClickListener.onEditClick(item);
+
+            }
+
+        });
     }
 
     @Override

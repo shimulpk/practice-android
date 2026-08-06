@@ -5,11 +5,13 @@ import android.content.Context;
 import com.example.myapplication.api.ApiClient;
 import com.example.myapplication.api.ApiService;
 import com.example.myapplication.model.request.DayWiseCuttingProductionRequest;
+import com.example.myapplication.model.request.DayWiseCuttingProductionUpdateRequest;
 import com.example.myapplication.model.response.CuttingDashboardResponse;
 import com.example.myapplication.model.response.CuttingPlanProgressResponse;
 import com.example.myapplication.model.response.CuttingPlanResponse;
 import com.example.myapplication.model.response.DayWiseCuttingHistoryDetailsResponse;
 import com.example.myapplication.model.response.DayWiseCuttingHistoryResponse;
+import com.example.myapplication.model.response.DayWiseCuttingHistorySummaryResponse;
 import com.example.myapplication.model.response.DayWiseCuttingProductionResponse;
 
 import java.util.List;
@@ -67,6 +69,27 @@ public class CuttingRepository {
                 .enqueue(callback);
     }
 
+    public void updateDayWiseCuttingProduction(
+            Long id,
+            DayWiseCuttingProductionUpdateRequest request,
+            Callback<DayWiseCuttingProductionResponse> callback) {
+
+        apiService
+                .updateDayWiseCuttingProduction(id, request)
+                .enqueue(callback);
+
+    }
+
+    public void getDayWiseCuttingProductionById(
+            Long id,
+            Callback<DayWiseCuttingProductionResponse> callback) {
+
+        apiService
+                .getDayWiseCuttingProductionById(id)
+                .enqueue(callback);
+
+    }
+
 
     public void getDayWiseCuttingHistory(
             String date,
@@ -95,6 +118,33 @@ public class CuttingRepository {
                 .enqueue(callback);
 
     }
+
+
+    public void getHistorySummary(
+
+            Long cuttingPlanId,
+
+            String date,
+
+            Callback<DayWiseCuttingHistorySummaryResponse> callback) {
+
+        apiService
+                .getHistorySummary(cuttingPlanId, date)
+                .enqueue(callback);
+
+    }
+
+    public void getAllCuttingPlans(
+            Callback<List<CuttingPlanResponse>> callback) {
+
+        apiService
+                .getAllCuttingPlans()
+                .enqueue(callback);
+
+    }
+
+
+
 
 
 

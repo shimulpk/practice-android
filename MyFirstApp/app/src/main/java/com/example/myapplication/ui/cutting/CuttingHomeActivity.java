@@ -72,8 +72,20 @@ public class CuttingHomeActivity extends AppCompatActivity {
         });
 
         binding.btnPlanList.setOnClickListener(v -> {
-            // পরে CuttingPlanListActivity খুলবে
+            Intent intent = new Intent(
+                    CuttingHomeActivity.this,
+                    CuttingPlanListActivity.class
+            );
+
+            startActivity(intent);
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        loadDashboard();
     }
 
     private void loadUserInfo() {

@@ -9,6 +9,16 @@ public class CuttingPlanResponse {
     private String styleNo;
     private Integer plannedPieces;
 
+    private String status;
+
+    private Integer actualCutPieces;
+
+    private Integer rejectedPieces;
+
+    private Integer remainingPieces;
+
+    private Double progress;
+
     public Long getId() {
         return id;
     }
@@ -55,6 +65,46 @@ public class CuttingPlanResponse {
 
     public void setPlannedPieces(Integer plannedPieces) {
         this.plannedPieces = plannedPieces;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Integer getActualCutPieces() {
+        return actualCutPieces;
+    }
+
+    public void setActualCutPieces(Integer actualCutPieces) {
+        this.actualCutPieces = actualCutPieces;
+    }
+
+    public Integer getRejectedPieces() {
+        return rejectedPieces;
+    }
+
+    public void setRejectedPieces(Integer rejectedPieces) {
+        this.rejectedPieces = rejectedPieces;
+    }
+
+    public Integer getRemainingPieces() {
+        return remainingPieces;
+    }
+
+    public void setRemainingPieces(Integer remainingPieces) {
+        this.remainingPieces = remainingPieces;
+    }
+
+    public Double getProgress() {
+        return progress;
+    }
+
+    public void setProgress(Double progress) {
+        this.progress = progress;
     }
 
     @Override

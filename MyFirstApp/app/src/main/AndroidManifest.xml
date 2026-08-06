@@ -8,9 +8,9 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/garment"
+        android:icon="@mipmap/logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/garment"
+        android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
         android:usesCleartextTraffic="true">
@@ -44,6 +44,13 @@
             android:name=".ui.cutting.CuttingHistoryDetailsActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".ui.cutting.CuttingPlanListActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"
+
+            />
     </application>
 
 </manifest>
