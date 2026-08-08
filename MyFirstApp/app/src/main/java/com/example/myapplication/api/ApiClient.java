@@ -22,7 +22,7 @@ public class ApiClient {
 
 
     // Real Device
-     private static final String BASE_URL = "http://192.168.0.101:8085/";
+     private static final String BASE_URL = "http://192.168.0.106:8085/";
 
     private static Retrofit retrofit;
 
